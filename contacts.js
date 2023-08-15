@@ -22,9 +22,15 @@ async function listContacts() {
 }
 
 async function getContactById(contactId) {
-    const data = await read();
+  const data = await read();
 
-    return data.find((contact) => contact.id === contactId);
+  const foundContact = data.find((contact) => contact.id === contactId);
+
+  if (foundContact === undefined) {
+    return null; 
+  }
+
+  return foundContact;
 }
 
 async function removeContact(contactId) {
@@ -33,7 +39,7 @@ async function removeContact(contactId) {
     const index = data.findIndex((contact) => contact.id === contactId);
 
     if (index === -1) {
-      return undefined;
+      return null;
     }
 
     const newContacts = [
